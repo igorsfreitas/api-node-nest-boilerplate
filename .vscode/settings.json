@@ -1,0 +1,9 @@
+{
+    "cSpell.words": [
+        "Injectable",
+        "nestjs",
+        "postgres"
+    ],
+    "editor.detectIndentation": false,
+    "rift.autostart": false
+}
