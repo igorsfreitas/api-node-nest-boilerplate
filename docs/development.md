@@ -5,6 +5,8 @@
   - [Installation](#installation)
     - [Database](#database)
     - [Configuration](#configuration)
+      - [MySQL](#mysql)
+        - [Docker Compose](#docker-compose)
     - [Dev server](#dev-server)
   - [Generators](#generators)
   - [Docker](#docker)
@@ -49,9 +51,6 @@ Some helper script to work with database
 ```bash
 # To create new migration file
 yarn migration:create migration_name
-
-# Truncate full database (note: it isn't deleting the database)
-yarn schema:drop
 
 # Generate migration from update of entities
 yarn migration:generate migration_name

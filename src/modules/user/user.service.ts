@@ -1,7 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CommandBus } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
-import { plainToClass } from 'class-transformer';
 import { type FindOptionsWhere, Repository } from 'typeorm';
 import { Transactional } from 'typeorm-transactional';
 
@@ -11,12 +9,9 @@ import { IFile } from '../../interfaces';
 import { AwsS3Service } from '../../shared/services/aws-s3.service';
 import { ValidatorService } from '../../shared/services/validator.service';
 import { UserRegisterDto } from '../auth/dto/user-register.dto';
-import { CreateSettingsCommand } from './commands/create-settings.command';
-import { CreateSettingsDto } from './dtos/create-settings.dto';
 import { type UserDto } from './dtos/user.dto';
 import { type UsersPageOptionsDto } from './dtos/users-page-options.dto';
 import { UserEntity } from './user.entity';
-import { type UserSettingsEntity } from './user-settings.entity';
 
 @Injectable()
 export class UserService {
@@ -25,7 +20,6 @@ export class UserService {
     private userRepository: Repository<UserEntity>,
     private validatorService: ValidatorService,
     private awsS3Service: AwsS3Service,
-    private commandBus: CommandBus,
   ) {}
 
   /**
@@ -38,9 +32,8 @@ export class UserService {
   async findByUsernameOrEmail(
     options: Partial<{ username: string; email: string }>,
   ): Promise<UserEntity | null> {
-    const queryBuilder = this.userRepository
-      .createQueryBuilder('user')
-      .leftJoinAndSelect<UserEntity, 'user'>('user.settings', 'settings');
+    const queryBuilder = this.userRepository.createQueryBuilder('user');
+    //   .leftJoinAndSelect<UserEntity, 'user'>('user.settings', 'settings');
 
     if (options.email) {
       queryBuilder.orWhere('user.email = :email', {
@@ -74,14 +67,6 @@ export class UserService {
 
     await this.userRepository.save(user);
 
-    user.settings = await this.createSettings(
-      user.id,
-      plainToClass(CreateSettingsDto, {
-        isEmailVerified: false,
-        isPhoneVerified: false,
-      }),
-    );
-
     return user;
   }
 
@@ -106,14 +91,5 @@ export class UserService {
     }
 
     return userEntity.toDto();
-  }
-
-  async createSettings(
-    userId: string,
-    createSettingsDto: CreateSettingsDto,
-  ): Promise<UserSettingsEntity> {
-    return this.commandBus.execute<CreateSettingsCommand, UserSettingsEntity>(
-      new CreateSettingsCommand(userId, createSettingsDto),
-    );
   }
 }

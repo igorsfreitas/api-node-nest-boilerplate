@@ -6,7 +6,6 @@
   - [`.husky`](#husky)
   - [`.vscode`](#vscode)
   - [`docs`](#docs)
-  - [`.vuepress`](#vuepress)
   - [`src`](#src)
     - [`common`](#common)
     - [`database`](#database)
@@ -52,10 +51,6 @@ Settings and extensions specific to this project, for Visual Studio Code. See [t
 ## `docs`
 
 You found me! :wink:
-
-## `.vuepress`
-
-Documentation config and destination folder See [VuePress doc](https://vuepress.vuejs.org) for more
 
 ## `src`
 

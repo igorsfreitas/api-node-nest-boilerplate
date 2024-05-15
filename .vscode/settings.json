@@ -5,5 +5,8 @@
         "postgres"
     ],
     "editor.detectIndentation": false,
-    "rift.autostart": false
+    "rift.autostart": false,
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    },
 }

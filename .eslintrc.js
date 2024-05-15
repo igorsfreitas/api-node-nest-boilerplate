@@ -39,7 +39,6 @@ module.exports = {
     'n/no-extraneous-import': 'off',
     'n/no-missing-import': 'off',
     'canonical/filename-match-exported': 'error',
-    'canonical/no-unused-exports': ['error', {tsConfigPath: './tsconfig.eslint.json'}],
     // 'canonical/id-match': [
     //   'error',
     //   '(^[A-Za-z]+(?:[A-Z][a-z]*)*\\d*$)|(^[A-Z]+(_[A-Z]+)*(_\\d$)*$)|(^(_|\\$)$)',
