@@ -58,3 +58,6 @@ And you will see the generated file in `dist` that ready to be served.
 ## Documentation
 
 This project includes a `docs` folder with more details
+
+## TODO
+Add Code generator with hygen or plop
